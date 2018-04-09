@@ -1,0 +1,25 @@
+启动APP报错，启动失败
+
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Cannot determine embedded database driver class for database type NONE
+
+Action:
+
+If you want an embedded database please put a supported one on the classpath.
+If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+
+
+解决方法：
+Exclude auto configuration of DataSource in the Spring Boot application class.
+We can do this using EnableAutoConfiguration annotation as shown in below code.
+
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
+
+
+根本原因是：之前版本引用了hibernateJpa的jar包，后来将这些依赖删除，没有及时build。
